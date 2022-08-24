@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { changeFilterStatus, colorFilter } from '../redux/filters/actions';
 
 const TodoFooter = () => {
+    const allTodo = useSelector((state) => state.todo);
     const filters = useSelector((state) => state.filters);
     const dispatch = useDispatch();
 
@@ -16,9 +17,21 @@ const TodoFooter = () => {
 
     const { status, colors } = filters;
 
+    const todoCount = () => {
+        const activeTodo = allTodo.filter(todo => !todo.status).length;
+
+        if(activeTodo <= 0) {
+            return 'No task'
+        } else if (activeTodo === 0) {
+            return '1 task'
+        } else {
+            return `${activeTodo} tasks`
+        }
+    }
+
     return (
         <div className="mt-4 flex justify-between text-xs text-gray-500">
-            <p>2 tasks left</p>
+            <p>{todoCount()} left</p>
             <ul className="flex space-x-1 items-center text-xs">
                 <li
                     onClick={() => handleStatus('All')}

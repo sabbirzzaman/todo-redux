@@ -18,12 +18,14 @@ const Todo = () => {
 
     return (
         <div className="mt-2 text-gray-700 text-sm max-h-[300px] overflow-y-auto">
-            {allTodo
-                .filter(filterByStatus)
-                .filter(filterByColor)
-                .map((todo) => (
-                    <TodoItem key={todo.id} todo={todo} />
-                ))}
+            {allTodo.length > 0 ? (
+                allTodo
+                    .filter(filterByStatus)
+                    .filter(filterByColor)
+                    .map((todo) => <TodoItem key={todo.id} todo={todo} />)
+            ) : (
+                <p className='text-center py-10'>No Task Left</p>
+            )}
         </div>
     );
 };

@@ -41,11 +41,10 @@ const TodoForm = () => {
                     value={input}
                     className="w-full text-lg px-4 py-1 border-none outline-none bg-gray-100 text-gray-500"
                 />
-                <input
+                <button
                     type="submit"
                     className={`appearance-none w-8 h-8 bg-[url('${plusImg}')] bg-no-repeat bg-contain`}
-                    value=""
-                />
+                ></button>
             </form>
 
             <ul className="flex justify-between my-4 text-xs text-gray-500">
