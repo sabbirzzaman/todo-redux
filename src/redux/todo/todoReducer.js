@@ -20,25 +20,29 @@ const todoReducer = (state = initialState, action) => {
                 {
                     id: getId(),
                     task: action.payload,
-                    completed: false,
-                    color: [],
+                    status: false,
+                    color: '',
                 },
             ];
         case COMPLETED_TOGGLE: {
             const clickedTodo = state.find(
                 (todo) => todo.id === action.payload
             );
-            clickedTodo.completed = !clickedTodo.completed;
+            clickedTodo.status = !clickedTodo.status;
 
-            return clickedTodo;
+            return [...state];
         }
         case COLOR_SELECT: {
             const clickedTodo = state.find(
-                (todo) => todo.id === action.payload
+                (todo) => todo.id === action.payload.id
             );
-            clickedTodo.color = [action.payload];
+            if(clickedTodo.color === action.payload.value) {
+                clickedTodo.color = ''
+            } else {
+                clickedTodo.color = action.payload.value;
+            }
 
-            return clickedTodo;
+            return [...state];
         }
         case DELETE: {
             const clickedTodo = state.filter(
@@ -47,14 +51,16 @@ const todoReducer = (state = initialState, action) => {
             return clickedTodo;
         }
         case COMPLETE_ALL: {
-            const copiedState = state.map((todo) => (todo.completed = true));
-            return copiedState;
+            state.map(
+                (todo) => todo.status = true
+            );
+            return [...state];
         }
         case CLEAR_COMPLETED: {
-            const copiedState = state.filter(
-                (todo) => todo.completed === false
+            const clickedTodo = state.filter(
+                (todo) => !todo.status
             );
-            return copiedState;
+            return clickedTodo;
         }
         default:
             return state;

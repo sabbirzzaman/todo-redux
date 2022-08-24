@@ -17,20 +17,21 @@ export const addTodo = (value) => {
 export const completeToggle = (id) => {
     return {
         type: COMPLETED_TOGGLE,
-        payload: id
+        payload: id,
     };
 };
 
-export const colorFilter = (value) => {
+export const todoColor = (id, value) => {
     return {
         type: COLOR_SELECT,
-        payload: value,
+        payload: { id, value },
     };
 };
 
-export const deleteTodo = () => {
+export const deleteTodo = (id) => {
     return {
         type: DELETE,
+        payload: id
     };
 };
 
@@ -40,7 +41,7 @@ export const completeAllTodo = () => {
     };
 };
 
-export const clearAllTodo = () => {
+export const clearCompletedTodo = () => {
     return {
         type: CLEAR_COMPLETED,
     };

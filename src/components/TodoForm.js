@@ -2,8 +2,20 @@ import React from 'react';
 import noteImg from '../images/notes.png'
 import tickImg from '../images/double-tick.png'
 import plusImg from '../images/plus.png'
+import { clearCompletedTodo, completeAllTodo } from '../redux/todo/actions';
+import { useDispatch } from 'react-redux';
 
 const TodoForm = () => {
+    const dispatch = useDispatch()
+
+    const removeCompletedTodo = () => {
+        dispatch(clearCompletedTodo())
+    }
+
+    const completeAllTask = () => {
+        dispatch(completeAllTodo())
+    }
+
     return (
         <div>
             <form className="flex items-center bg-gray-100 px-4 py-4 rounded-md">
@@ -20,7 +32,7 @@ const TodoForm = () => {
             </form>
 
             <ul className="flex justify-between my-4 text-xs text-gray-500">
-                <li className="flex space-x-1 cursor-pointer">
+                <li onClick={completeAllTask} className="flex space-x-1 cursor-pointer">
                     <img
                         className="w-4 h-4"
                         src={tickImg}
@@ -28,7 +40,7 @@ const TodoForm = () => {
                     />
                     <span>Complete All Tasks</span>
                 </li>
-                <li className="cursor-pointer">Clear completed</li>
+                <li onClick={removeCompletedTodo} className="cursor-pointer">Clear completed</li>
             </ul>
         </div>
     );
