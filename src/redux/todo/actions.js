@@ -1,6 +1,6 @@
 import {
-    ADDED,
-    COMPLETE,
+    TODO_ADDED,
+    COMPLETED_TOGGLE,
     COLOR_SELECT,
     DELETE,
     COMPLETE_ALL,
@@ -9,14 +9,15 @@ import {
 
 export const addTodo = (value) => {
     return {
-        type: ADDED,
+        type: TODO_ADDED,
         payload: value,
     };
 };
 
-export const completeToggle = () => {
+export const completeToggle = (id) => {
     return {
-        type: COMPLETE,
+        type: COMPLETED_TOGGLE,
+        payload: id
     };
 };
 

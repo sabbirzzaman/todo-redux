@@ -1,5 +1,5 @@
-export const ADDED = 'todo/added';
-export const COMPLETE = 'todo/complete';
+export const TODO_ADDED = 'todo/todo-added';
+export const COMPLETED_TOGGLE = 'todo/complete-toggle';
 export const COLOR_SELECT = 'todo/complete';
 export const DELETE = 'todo/delete';
 export const COMPLETE_ALL = 'todo/complete-all';
