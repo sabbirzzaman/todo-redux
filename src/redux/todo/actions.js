@@ -1,4 +1,5 @@
 import {
+    TODO_LOADED,
     TODO_ADDED,
     COMPLETED_TOGGLE,
     COLOR_SELECT,
@@ -6,6 +7,13 @@ import {
     COMPLETE_ALL,
     CLEAR_COMPLETED,
 } from './actionTypes';
+
+export const loadTodo = (todo) => {
+    return {
+        type: TODO_LOADED,
+        payload: todo,
+    };
+};
 
 export const addTodo = (value) => {
     return {

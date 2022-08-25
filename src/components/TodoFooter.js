@@ -18,7 +18,7 @@ const TodoFooter = () => {
     const { status, colors } = filters;
 
     const todoCount = () => {
-        const activeTodo = allTodo.filter(todo => !todo.status).length;
+        const activeTodo = allTodo.filter(todo => !todo.completed).length;
 
         if(activeTodo <= 0) {
             return 'No task'

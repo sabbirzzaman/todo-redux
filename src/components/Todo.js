@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TodoItem from './TodoItem';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import fetchTodo from '../redux/todo/thunk/fetchTodo';
 
 const Todo = () => {
     const allTodo = useSelector((state) => state.todo);
     const filters = useSelector((state) => state.filters);
 
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchTodo)
+    }, [dispatch])
+
     const { status, colors } = filters;
 
     const filterByStatus = (todo) =>
-        (status === 'Incomplete' && !todo.status) ||
-        (status === 'Complete' && todo.status) ||
+        (status === 'Incomplete' && !todo.completed) ||
+        (status === 'Complete' && todo.completed) ||
         (status === 'All' && todo);
 
     const filterByColor = (todo) =>

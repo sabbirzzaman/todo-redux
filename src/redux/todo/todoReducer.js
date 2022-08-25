@@ -5,6 +5,7 @@ import {
     COMPLETE_ALL,
     DELETE,
     TODO_ADDED,
+    TODO_LOADED,
 } from './actionTypes';
 import { initialState } from './initialState';
 
@@ -14,13 +15,15 @@ const todoReducer = (state = initialState, action) => {
     };
 
     switch (action.type) {
+        case TODO_LOADED:
+            return [...action.payload];
         case TODO_ADDED:
             return [
                 ...state,
                 {
                     id: getId(),
-                    task: action.payload,
-                    status: false,
+                    text: action.payload,
+                    completed: false,
                     color: '',
                 },
             ];
@@ -28,7 +31,7 @@ const todoReducer = (state = initialState, action) => {
             const clickedTodo = state.find(
                 (todo) => todo.id === action.payload
             );
-            clickedTodo.status = !clickedTodo.status;
+            clickedTodo.completed = !clickedTodo.completed;
 
             return [...state];
         }
@@ -52,13 +55,13 @@ const todoReducer = (state = initialState, action) => {
         }
         case COMPLETE_ALL: {
             state.map(
-                (todo) => todo.status = true
+                (todo) => todo.completed = true
             );
             return [...state];
         }
         case CLEAR_COMPLETED: {
             const clickedTodo = state.filter(
-                (todo) => !todo.status
+                (todo) => !todo.completed
             );
             return clickedTodo;
         }
