@@ -2,7 +2,7 @@ import { edited } from "../actions";
 
 const editTodo = (todoId, text) => {
     return async (dispatch) => {
-        const response = await fetch(`http://localhost:9000/todos/${todoId}`, {
+        const response = await fetch(`https://lws-server-api.herokuapp.com/todos/${todoId}`, {
             method: "PATCH",
             body: JSON.stringify({
                 text: text,

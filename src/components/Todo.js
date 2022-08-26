@@ -1,3 +1,5 @@
+import { faCircleCheck, faCircleXmark, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import cancelImage from '../assets/images/cancel.png';
@@ -6,7 +8,7 @@ import editTodo from '../redux/todos/thunk/editTodo';
 import updateColor from '../redux/todos/thunk/updateColor';
 import updateStatus from '../redux/todos/thunk/updateStatus';
 
-export default function Todo({ todo }) {
+export default function Todo({ todo, isCompleted }) {
     const dispatch = useDispatch();
     const [editInput, setEditInput] = useState('');
     const [idEditing, setIsEditing] = useState(false);
@@ -29,9 +31,9 @@ export default function Todo({ todo }) {
         setIsEditing(true);
         setEditInput(text);
     };
-    
+
     const handleSaveEdit = (todoId, textInput) => {
-        dispatch(editTodo(todoId, textInput))
+        dispatch(editTodo(todoId, textInput));
         setIsEditing(false);
     };
 
@@ -68,49 +70,84 @@ export default function Todo({ todo }) {
                     <>
                         <input
                             onChange={(e) => setEditInput(e.target.value)}
-                            type="text"
+                            type="text" 
+                            className='w-3/4 rounded bg-gray-100 text-gray-500 p-1'
                             value={editInput}
                         />
-                        <button className='bg-green-500 text-white px-3 rounded mx-2' onClick={() => handleSaveEdit(id, editInput)}>Save</button>
-                        <button className='bg-red-500 text-white px-3 rounded' onClick={() => handleSaveEdit(id, text)}>Cancel</button>
+                        <button
+                            className="text-green-500 text-white mx-3 text-lg"
+                            onClick={() => handleSaveEdit(id, editInput)}
+                        >
+                            <FontAwesomeIcon icon={faCircleCheck} />
+                        </button>
+                        <button
+                            className="text-red-500 text-white text-lg"
+                            onClick={() => handleSaveEdit(id, text)}
+                        >
+                            <FontAwesomeIcon icon={faCircleXmark} />
+                        </button>
                     </>
                 )}
             </div>
 
-            <div
-                className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer hover:bg-green-500 border-green-500 ${
-                    color === 'green' && 'bg-green-500'
-                }`}
-                onClick={() => handleColorChange(id, 'green')}
-            ></div>
+            {!isCompleted ? (
+                <>
+                    <div
+                        className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer hover:bg-green-500 border-green-500 ${
+                            color === 'green' && 'bg-green-500'
+                        }`}
+                        onClick={() => handleColorChange(id, 'green')}
+                    ></div>
 
-            <div
-                className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer hover:bg-yellow-500 border-yellow-500 ${
-                    color === 'yellow' && 'bg-yellow-500'
-                }`}
-                onClick={() => handleColorChange(id, 'yellow')}
-            ></div>
+                    <div
+                        className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer hover:bg-yellow-500 border-yellow-500 ${
+                            color === 'yellow' && 'bg-yellow-500'
+                        }`}
+                        onClick={() => handleColorChange(id, 'yellow')}
+                    ></div>
 
-            <div
-                className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer hover:bg-red-500 border-red-500 ${
-                    color === 'red' && 'bg-red-500'
-                }`}
-                onClick={() => handleColorChange(id, 'red')}
-            ></div>
+                    <div
+                        className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer hover:bg-red-500 border-red-500 ${
+                            color === 'red' && 'bg-red-500'
+                        }`}
+                        onClick={() => handleColorChange(id, 'red')}
+                    ></div>
 
-            <button
-                className="bg-violet-600 text-white px-3 rounded"
-                onClick={() => handleEditTodo(id)}
-            >
-                Edit
-            </button>
+                    <button
+                        className="text-violet-600"
+                        onClick={() => handleEditTodo(id)}
+                    >
+                        <FontAwesomeIcon icon={faPenToSquare} />
+                    </button>
 
-            <img
-                src={cancelImage}
-                className="flex-shrink-0 w-4 h-4 ml-2 cursor-pointer"
-                alt="Cancel"
-                onClick={() => handleDelete(id)}
-            />
+                    <img
+                        src={cancelImage}
+                        className="flex-shrink-0 w-4 h-4 ml-2 cursor-pointer"
+                        alt="Cancel"
+                        onClick={() => handleDelete(id)}
+                    />
+                </>
+            ) : (
+                <>
+                    <div
+                        className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto border-green-500 ${
+                            color === 'green' && 'bg-green-500'
+                        }`}
+                    ></div>
+
+                    <div
+                        className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto border-yellow-500 ${
+                            color === 'yellow' && 'bg-yellow-500'
+                        }`}
+                    ></div>
+
+                    <div
+                        className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto border-red-500 ${
+                            color === 'red' && 'bg-red-500'
+                        }`}
+                    ></div>
+                </>
+            )}
         </div>
     );
 }
