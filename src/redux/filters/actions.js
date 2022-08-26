@@ -1,15 +1,18 @@
-import { CHANGE_COLOR, CHANGE_STATUS } from "./actionTypes"
+import { COLORCHANGED, STATUSCHANGED } from "./actionTypes";
 
-export const changeFilterStatus = (value) => {
+export const colorChanged = (color, changeType) => {
     return {
-        type: CHANGE_STATUS,
-        payload: value
-    }
-}
+        type: COLORCHANGED,
+        payload: {
+            color,
+            changeType,
+        },
+    };
+};
 
-export const colorFilter = (value) => {
+export const statusChanged = (status) => {
     return {
-        type: CHANGE_COLOR,
-        payload: value
-    }
-}
+        type: STATUSCHANGED,
+        payload: status,
+    };
+};
