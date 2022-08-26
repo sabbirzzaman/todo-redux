@@ -34,7 +34,7 @@ export default function Footer() {
 
     return (
         <div className="mt-4 flex justify-between text-xs text-gray-500">
-            <p>{numberOfTodos(todosRemaining)}left</p>
+            <p>{numberOfTodos(todosRemaining)} left</p>
             <ul className="flex space-x-1 items-center text-xs">
                 <li
                     className={`cursor-pointer ${
